@@ -1,151 +1,117 @@
-# Coding Conventions
+# Code Conventions
 
-**Analysis Date:** 2026-03-23
+## Component Patterns
 
-## Naming Patterns
+### Server vs Client Components
+- **Default is server** — only `interactive/` and `layout/` components use `'use client'`
+- Client components are explicitly opted-in with the `'use client'` directive at the top
+- UI primitives (`Button`, `Badge`, `Container`) are server components — no hooks or browser APIs
 
-**Files:**
-- HTML: `index.html` - single page entry point
-- CSS: `styles.css` - single stylesheet using kebab-case for class names
-- JavaScript: `script.js` - single script file using camelCase for function/variable names
-- No file extensions beyond standard web types (no .ts, .tsx, .jsx)
+### Component Structure
+```tsx
+'use client'; // only if needed
 
-**Functions:**
-- camelCase: `querySelectorAll()`, `addEventListener()`, `getBoundingClientRect()`
-- No explicit function declarations; uses inline event handlers and arrow functions
-- Descriptive names indicating purpose: `getFAQAnswerHeight()`, `updateNavbarScroll()`
+import { useRef } from 'react';          // React hooks
+import { motion, useScroll } from 'motion/react'; // Third-party
+import Image from 'next/image';           // Next.js
+import styles from './Component.module.css'; // Co-located CSS Module
 
-**Variables:**
-- camelCase throughout: `observerOptions`, `scrollPercent`, `scrollY`
-- Const for immutable values and DOM elements: `const navbar = document.querySelector('.navbar')`
-- Const for configuration objects: `const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }`
+type ComponentProps = {                   // Inline type (not interface)
+  src: string;
+  alt: string;
+};
 
-**CSS Classes:**
-- kebab-case: `.navbar-logo`, `.hero-section`, `.feature-card`, `.faq-item`
-- Semantic naming: `.active` for state, `.parallax-image` for effect, `.fade-in` for animation
-- BEM-like structure: `.navbar-container`, `.navbar-links`, `.navbar-actions`
-- Component-scoped: `.hero-section`, `.about-section`, `.features-section`, `.faq-section`
+export default function Component({ src, alt }: ComponentProps) {
+  // hooks → derived values → return JSX
+}
+```
 
-**CSS Custom Properties:**
-- kebab-case with semantic naming: `--dark-1`, `--dark-2`, `--dark-3`, `--font-family`, `--light-blue`
-- Color palette organized by darkness/lightness level
-- Located in `:root` pseudo-selector for global access
+### Type Definitions
+- **Inline `type` declarations** preferred over interfaces
+- Props types named `{ComponentName}Props`
+- No shared types file — types are co-located with components
+- No barrel exports (`index.ts`) — direct file imports
 
-## Code Style
+### Export Style
+- **Default exports** for all components
+- **Named exports** for data files (e.g., `export const faqItems = [...]`)
 
-**Formatting:**
-- No automated formatter configured (Prettier not detected)
-- Manual formatting observed:
-  - 2-space indentation in CSS (implied)
-  - 2-space indentation in JavaScript
-  - Consistent spacing around braces and operators
+## Styling
 
-**Linting:**
-- No ESLint configuration detected
-- No TypeScript compilation
-- Plain JavaScript following implicit conventions:
-  - Use `const` for immutable bindings
-  - Use `let` for variables (not observed in codebase)
-  - Avoid `var` (not used in codebase)
+### CSS Modules
+- Co-located with components: `Component.tsx` + `Component.module.css`
+- Not all components have CSS modules — simple ones use inline styles
+- Class names use **camelCase**: `heroInner`, `featuresRow`, `statsContainer`
+- Applied via `styles.className` or template literals for conditionals:
+  ```tsx
+  className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
+  ```
 
-**CSS Organization:**
-- Organized by functional sections with comment headers
-- Pattern: `/* ======== [Section] ======== */`
-- Reset and design tokens at top (`styles.css` lines 1-24)
-- Sections follow logical page layout: Typography → Layout → Buttons → Components → Responsive
+### Global CSS (`globals.css`)
+- CSS reset at top
+- Design tokens in `:root`
+- Typography utility classes (`.h1`–`.h6`, `.body-xl`, `.body-l`, `.body-m`)
+- Applied directly as className strings: `className="h2"`, `className="body-l"`
+
+### Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--dark-1` | `rgb(38, 38, 40)` | Primary text |
+| `--dark-2` | `rgb(87, 87, 87)` | Secondary text |
+| `--dark-3` | `rgb(195, 196, 197)` | Borders |
+| `--dark-4` | `rgb(236, 237, 239)` | Light borders |
+| `--dark-5` | `rgb(250, 250, 250)` | Section backgrounds |
+| `--white` | `rgb(255, 255, 255)` | Page background |
+| `--black` | `rgb(5, 6, 11)` | Dark backgrounds |
+| `--light-blue` | `rgb(197, 224, 242)` | Accent color |
+| `--neutral-50` | `rgb(112, 112, 112)` | Muted text |
+| `--neutral-20` | `rgb(235, 235, 235)` | Subtle backgrounds |
+| `--neutral-10` | `rgb(248, 248, 248)` | Near-white |
+
+### Layout Patterns
+- **Max-width:** 1200px with `margin: 0 auto` for centering
+- **Padding:** 24px horizontal padding on section containers
+- **Section spacing:** 160px vertical padding between sections
+- **Gap values:** 10px, 16px, 32px, 42px, 62px, 80px, 160px (non-standard scale)
+- **Border radius:** 24px (cards), 28px (images), 100px (pills/icons)
+
+## Animation Conventions
+
+### Motion Library (`motion/react`)
+- Imported from `motion/react` (not `framer-motion`)
+- Easing curve used consistently: `[0.22, 1, 0.36, 1]` (ease-out expo)
+- Alternative easing: `[0.25, 0.46, 0.45, 0.94]` (ease-out quad — used in Navbar)
+- `useInView` with `{ once: true }` for one-shot scroll animations
+- `useScroll` + `useTransform` for continuous scroll-linked effects
+- `AnimatePresence` for enter/exit animations (FAQ, Carousel)
+
+### Animation Durations
+- Fade-in: 0.8s default
+- Text reveal: 0.6s per word with 0.04s stagger
+- Transitions: 0.3s–1.0s depending on effect
+- Carousel crossfade: 1.0s
 
 ## Import Organization
+1. React hooks
+2. Third-party libraries (`motion/react`, `lenis`)
+3. Next.js imports (`next/image`, `next/font`)
+4. Internal components (`@/components/...`)
+5. Data imports (`@/data/...`)
+6. CSS Modules (last)
 
-**JavaScript:**
-- No import/export statements (ES6 modules not used)
-- All JavaScript runs in global scope via single `<script src="script.js"></script>` tag
-- DOM manipulation via direct global access: `document.querySelectorAll()`, `window.addEventListener()`
+## Naming
 
-**HTML Linking:**
-- External stylesheet linked in `<head>`: `<link rel="stylesheet" href="styles.css">`
-- Script loaded at end of `<body>`: `<script src="script.js"></script>`
-- Google Fonts linked via `<link rel="preconnect">` for optimization
-- No package manager dependencies (no npm/import system)
+- **Components:** PascalCase
+- **Files:** PascalCase for components, camelCase for data/lib
+- **CSS classes (modules):** camelCase
+- **CSS variables:** kebab-case
+- **Props:** camelCase
+- **Event handlers:** camelCase (`handleScroll`, `onClick`)
 
 ## Error Handling
 
-**Patterns:**
-- No explicit error handling observed
-- Defensive DOM queries: Uses `querySelector()` which returns `null` if not found
-- Rely on browser error suppression for missing DOM elements
-- Example: `document.querySelector('.navbar-container').style.opacity = '1'` (will error if element missing)
-- Assumption: HTML structure always provides required elements
-
-## Logging
-
-**Framework:** `console` (browser console API)
-
-**Patterns:**
-- No logging statements observed in current codebase
-- Could use: `console.log()`, `console.error()`, `console.warn()` if debugging needed
-- No structured logging or log levels
-
-## Comments
-
-**When to Comment:**
-- Section headers in CSS with consistent formatting: `/* ======== [Section Name] ======== */`
-- Section comments group related styles: Design Tokens, Typography, Layout, etc.
-- No inline comments in JavaScript code
-- HTML uses semantic naming that makes intent clear (no comments needed)
-
-**JSDoc/TSDoc:**
-- Not applicable - no TypeScript
-- No function documentation observed
-- Code relies on clear naming and structure for understanding
-
-## Function Design
-
-**Size:**
-- Functions are small and focused on single responsibility
-- Maximum ~10 lines of code per function/event handler
-- Anonymous arrow functions preferred for event listeners
-
-**Parameters:**
-- Minimal parameters; most functions operate on DOM elements found via `querySelector`
-- Event handlers accept single `event` parameter (rarely used)
-
-**Return Values:**
-- Event listeners return nothing (void)
-- No utility functions with return values observed
-- DOM methods (`querySelector`, `addEventListener`) return results used directly
-
-## Module Design
-
-**Exports:**
-- No module exports (no module system)
-- All code is procedural and runs on page load
-
-**Barrel Files:**
-- Not applicable - single `script.js` file
-- All logic consolidated in one file
-
-**Structure in `script.js` (`/Users/gowthamreddy/new-website/script.js`):**
-1. FAQ Accordion functionality (lines 1-15)
-2. Navbar scroll effect (lines 17-25)
-3. Parallax image effect (lines 27-35)
-4. Fade-in on scroll with Intersection Observer (lines 37-57)
-5. Navbar visibility optimization (lines 59-61)
-
-## State Management
-
-**Patterns:**
-- Uses DOM classes for state: `.active` class toggles FAQ accordion
-- Browser APIs for state: Intersection Observer for scroll tracking
-- No state variables; state exists in DOM attributes and classes
-
-## Selectors and DOM Queries
-
-**Pattern:**
-- Prefers `document.querySelectorAll()` for multiple elements
-- Prefers `document.querySelector()` for single elements
-- Cache results in `const` when reused: `const navbar = document.querySelector('.navbar')`
-- Immediate query without caching if used once
-
----
-
-*Convention analysis: 2026-03-23*
+- No explicit error handling — relies on Next.js defaults
+- No error boundaries
+- No loading states
+- Images fail silently via Next.js `<Image>` component

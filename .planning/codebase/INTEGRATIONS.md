@@ -1,111 +1,43 @@
 # External Integrations
 
-**Analysis Date:** 2026-03-23
+## Overview
 
-## APIs & External Services
+This is a static marketing website with minimal external dependencies. No backend, no APIs, no databases, no authentication.
 
-**Typography & Fonts:**
-- Google Fonts API - Provides Inter typeface
-  - Integration: CDN link in `index.html` lines 7-9
-  - URL: `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap`
-  - Auth: None (public CDN)
+## Image CDN — Framer
 
-**Media & Asset Hosting:**
-- Framer (framerusercontent.com) - Hosts product images and graphics
-  - Integration: Image `src` attributes in `index.html`
-  - Used in: Hero section (line 41), About section (lines 51, 56), Features sections (lines 77, 86), Product carousel (lines 163, 166, 169), Blog section (lines 249, 258, 267)
-  - Auth: None (public CDN)
+- **Provider:** Framer CDN (`https://framerusercontent.com/images/`)
+- **Usage:** All product photography and speaker images
+- **Configuration:** Allowed via `next.config.ts` `images.remotePatterns`
+- **Optimization:** Images served through Next.js `<Image>` component with automatic optimization
+- **Examples:**
+  - Hero image: `ubG0q5oU24cynTwk8AE2YihwtQ4.jpg`
+  - Feature images: `ICfDgHiYeg3CrkgPh0eIAqjfps.jpg`, `b2pU6wEvFiNfe0hneAEK9s55W4I.jpg`
+  - Carousel images: `cLXMCm17ntE7skBNfueokzH8q8.jpg`, `lelyO33appQMx848NrtNZZ6iEI.jpg`, `Qi9yR8aP0GD25HrRBpMLab0TB1Q.jpg`
+  - Logo SVG: `EWwybjVc0FzkiqCXEUuyTPfgU.svg`
 
-**Social Media:**
-- X (Twitter) - Link in footer
-  - URL: `https://www.x.com`
-  - Integration: Footer social link in `index.html` line 325
-- Instagram - Link in footer
-  - URL: `https://www.instagram.com`
-  - Integration: Footer social link in `index.html` line 328
+## Fonts — Google Fonts
 
-## Data Storage
+- **Provider:** Google Fonts (via `next/font/google`, not CDN link)
+- **Font:** Inter (variable weight)
+- **Loading:** Self-hosted by Next.js at build time — no runtime external requests
 
-**Databases:**
-- Not applicable - no backend database detected
+## External APIs
 
-**File Storage:**
-- Cloud-based: Framer CDN for images
-- Local: No static assets committed (images external)
+None. All content is hardcoded in `src/data/` files.
 
-**Caching:**
-- Browser caching (via HTTP headers on production server)
-- No explicit caching library or strategy detected
+## Databases
 
-## Authentication & Identity
+None. Static site with no data persistence.
 
-**Auth Provider:**
-- Not applicable - no user authentication system detected
+## Authentication
 
-**Implementation:**
-- Static public site with no protected content
-- No login/session management
+None. No user accounts or protected routes.
 
-## Monitoring & Observability
+## Analytics / Tracking
 
-**Error Tracking:**
-- Not detected
+None detected in codebase.
 
-**Logs:**
-- Browser console only
-- No server-side logging infrastructure
+## Webhooks / Third-Party Services
 
-**Analytics:**
-- Not detected - no Google Analytics, Mixpanel, or similar services integrated
-
-## CI/CD & Deployment
-
-**Hosting:**
-- Not detected in codebase - deployment target TBD
-- Suitable for: Static site hosting (Vercel, Netlify, GitHub Pages, AWS S3, Cloudflare Pages, etc.)
-
-**CI Pipeline:**
-- Not configured in codebase
-
-## Environment Configuration
-
-**Required env vars:**
-- None - site requires no environment configuration
-
-**Secrets location:**
-- Not applicable - no secrets needed
-
-## Webhooks & Callbacks
-
-**Incoming:**
-- Not detected - no backend endpoints
-
-**Outgoing:**
-- Not detected - no external API calls from client-side code
-
-## Call-to-Action Links
-
-**Commerce:**
-- "Buy now" buttons present throughout site (`index.html` lines 27, 38, 73, 96, 283)
-- Href: `#` (placeholder - not configured)
-- Requires: Integration with e-commerce platform (Shopify, WooCommerce, custom checkout, etc.)
-
-**Navigation & Contact:**
-- Contact form link: `/contact` (line 307) - not implemented
-- Blog link: `/blogs` (line 306) - not implemented
-- Terms of Service: `/legal/terms-of-service` (line 313) - not implemented
-- Privacy Policy: `/legal/privacy-policy` (line 314) - not implemented
-
-## Third-Party Services Absent
-
-**Not integrated (but commonly used for similar sites):**
-- Email service provider (Mailchimp, ConvertKit, etc.)
-- Payment processor (Stripe, PayPal)
-- CRM system
-- Chat/support widget
-- CDN (beyond Framer for images)
-- Email verification service
-
----
-
-*Integration audit: 2026-03-23*
+None.

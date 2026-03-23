@@ -1,149 +1,80 @@
 # Architecture
 
-**Analysis Date:** 2026-03-23
-
 ## Pattern Overview
 
-**Overall:** Static Marketing Website (Single-Page Application)
-
-**Key Characteristics:**
-- Vanilla HTML, CSS, and JavaScript (no framework dependencies)
-- Semantic HTML structure with progressive enhancement
-- CSS-based design system with custom properties (design tokens)
-- Event-driven JavaScript for interactivity and scroll effects
-- No build process or bundling required
+Single-page marketing website built with Next.js App Router. Server-rendered layout with client-side interactive components for animations. Section-based architecture where each page section is a self-contained block in `src/app/page.tsx`.
 
 ## Layers
 
-**Presentation Layer:**
-- Purpose: Render UI components and visual elements
-- Location: `index.html`, `styles.css`
-- Contains: HTML semantic structure, section-based components, CSS styling
-- Depends on: Design tokens (CSS custom properties)
-- Used by: Browser rendering engine, JavaScript event handlers
+### 1. App Shell (Server)
+- **Location:** `src/app/layout.tsx`
+- **Contains:** HTML structure, font loading, metadata, Navbar, Footer
+- **Renders:** Server-side — shared across all pages (currently only one page)
 
-**Styling Layer:**
-- Purpose: Consistent visual design and responsive layout
-- Location: `styles.css` (794 lines)
-- Contains: Design tokens (colors, typography), layout utilities, component styles, animations
-- Depends on: Inter font from Google Fonts
-- Used by: All HTML elements
+### 2. Page Content (Server)
+- **Location:** `src/app/page.tsx` (~300 lines)
+- **Contains:** All page sections inline — Hero, About, Features (x2), Stats, Product, FAQ, Blog, CTA
+- **Pattern:** Single monolithic page component importing section-specific interactive components
+- **Styling:** `src/app/page.module.css` with section-scoped classes
 
-**Interaction Layer:**
-- Purpose: Handle dynamic user interactions and scroll effects
-- Location: `script.js` (62 lines)
-- Contains: FAQ accordion toggle, navbar scroll effect, parallax scrolling, fade-in observer
-- Depends on: DOM elements with specific class names
-- Used by: Event listeners on user interactions and scroll events
+### 3. Interactive Components (Client)
+- **Location:** `src/components/interactive/`
+- **Contains:** Animation wrappers and interactive UI elements
+- **All marked `'use client'`** — these are the only client-side components
+- **Components:**
+  - `FadeIn.tsx` — Scroll-triggered fade with direction, scale, blur options
+  - `TextReveal.tsx` — Word-by-word text animation on scroll
+  - `ParallaxImage.tsx` — Scroll-linked parallax image with scale/border-radius transforms
+  - `HeroImage.tsx` — Hero-specific parallax with opacity fade
+  - `ImageCarousel.tsx` — Auto-playing image carousel with thumbnail selectors
+  - `FAQItem.tsx` — Accordion item with expand/collapse animation
+  - `SmoothScroll.tsx` — Lenis smooth scroll initializer (renders nothing)
+
+### 4. Layout Components (Client)
+- **Location:** `src/components/layout/`
+- **Contains:** Navbar (scroll-aware with background change), Footer
+- **Both marked `'use client'`** for scroll event handling and motion animations
+
+### 5. UI Primitives (Server)
+- **Location:** `src/components/ui/`
+- **Contains:** Button, Badge, Container — reusable styled elements
+- **No client-side behavior** — pure presentational components
+
+### 6. Static Data
+- **Location:** `src/data/`
+- **Contains:** Hardcoded content arrays — `stats.ts`, `faq.ts`, `blogs.ts`, `navigation.ts`, `footer.ts`
+- **Pattern:** Named exports of typed arrays, imported directly into page/components
+
+### 7. Design System
+- **Location:** `src/app/globals.css`
+- **Contains:** CSS reset, design tokens (CSS custom properties), typography scale classes
+- **Tokens:** Color palette (`--dark-1` through `--dark-5`, `--white`, `--black`, `--light-blue`, neutrals)
+- **Typography:** Classes `.h1` through `.h6`, `.body-xl`, `.body-l`, `.body-m`
 
 ## Data Flow
 
-**Page Load → Render:**
+```
+Static Data (src/data/) → Page Component (page.tsx) → Interactive Wrappers → DOM
+                                                          ↓
+                                                    Motion Library → Scroll-linked animations
+                                                    Lenis → Smooth scroll behavior
+```
 
-1. Browser parses `index.html`
-2. Loads external stylesheet `styles.css`
-3. Applies design tokens and base styles
-4. Renders semantic HTML structure
-5. Defers script execution to end of body
-6. `script.js` initializes event listeners
-
-**User Interaction → State Update:**
-
-1. User clicks `.faq-question` button
-2. Event listener in `script.js` toggles `.active` class on parent `.faq-item`
-3. CSS transition on `.faq-answer` animates reveal/hide
-4. No state management needed (DOM class-based state)
-
-**Scroll Event → Visual Updates:**
-
-1. User scrolls page
-2. Scroll event listener on `window` triggers three effects:
-   - Navbar border fade-in when scrollY > 50px
-   - Parallax image offset calculation based on viewport position
-   - Intersection Observer detects when sections enter viewport
-3. CSS transforms applied to update visual state
-
-**State Management:**
-- No centralized state management
-- State exists in DOM (`classList`, inline styles, scroll position)
-- Component state is ephemeral (not persisted)
-
-## Key Abstractions
-
-**Section Component:**
-- Purpose: Reusable page section pattern with consistent spacing
-- Examples: `.hero-section`, `.about-section`, `.features-section`, `.stats-section`, `.product-section`, `.faq-section`, `.blog-section`, `.cta-section`, `.footer`
-- Pattern: Container div with semantic `<section>` tag, inner `.container` for max-width constraint and padding
-
-**Button Component:**
-- Purpose: Consistent call-to-action styling with variants
-- Examples: `.btn`, `.btn-primary`, `.btn-secondary`, `.btn-sm`, `.btn-lg`
-- Pattern: Base `.btn` class with size modifiers (`-sm`, `-lg`) and color modifiers (`-primary`, `-secondary`)
-
-**Badge Component:**
-- Purpose: Label/category indicators with border styling
-- Examples: `.badge` used in stats, product, blog sections
-- Pattern: Icon + text with border and rounded background
-
-**Card Component:**
-- Purpose: Contained content blocks in grid layouts
-- Examples: `.feature-card` (stats section), `.blog-card` (blog grid)
-- Pattern: Flex container with icon/image, content, consistent padding and border-radius
-
-**Parallax Container:**
-- Purpose: Image scrolling effect linked to viewport position
-- Examples: `.parallax-image` in features sections
-- Pattern: Image wrapper with fixed height, JavaScript calculates offset based on viewport position
+- No state management library — state is local to individual client components
+- Navbar: `scrolled` boolean state from scroll listener
+- ImageCarousel: `current` index + `isPaused` state
+- FAQItem: `open` boolean state per item
 
 ## Entry Points
 
-**HTML Document Root:**
-- Location: `index.html`
-- Triggers: Browser load, user navigation
-- Responsibilities: Define page structure, semantic markup, load CSS and JS
+| Entry | File | Purpose |
+|-------|------|---------|
+| App Root | `src/app/layout.tsx` | Root layout, font, metadata |
+| Home Page | `src/app/page.tsx` | All marketing sections |
+| Globals | `src/app/globals.css` | Reset, tokens, typography |
 
-**JavaScript Initialization:**
-- Location: `script.js` (last line of body in `index.html` line 336)
-- Triggers: DOM loaded
-- Responsibilities: Set up event listeners, initialize observers, attach scroll handlers
+## Rendering Strategy
 
-**Styling Initialization:**
-- Location: `styles.css` loaded in `<head>` (line 10 of `index.html`)
-- Triggers: HTML parsing
-- Responsibilities: Define design tokens, apply reset styles, render initial state
-
-## Error Handling
-
-**Strategy:** Graceful degradation
-
-**Patterns:**
-- No explicit error handling (relies on browser defaults)
-- Intersection Observer with try-catch not used; assumes browser support
-- External images fail silently (graceful image loading)
-- Missing external fonts fall back to system font stack
-- JavaScript features (parallax, accordion) are enhancements; core content visible without JS
-
-## Cross-Cutting Concerns
-
-**Logging:** No logging implemented
-
-**Validation:** No form validation (no forms present)
-
-**Authentication:** Not applicable (static content)
-
-**Styling Consistency:**
-- All color values use CSS custom properties (`--dark-1`, `--dark-2`, `--light-blue`, etc.)
-- Typography scales defined by `.h1` through `.body-m` classes
-- Spacing uses hardcoded px values (no spacing scale token)
-- All transitions use consistent timing (0.2s - 0.6s, ease functions)
-
-**Accessibility Considerations:**
-- Semantic HTML (`<nav>`, `<section>`, `<footer>`, `<button>`)
-- Alt text on images
-- Proper heading hierarchy (h1, h3, h5, h6)
-- Focus-visible states not explicitly styled for keyboard navigation
-- FAQ accordion icons have `currentColor` for visibility
-
----
-
-*Architecture analysis: 2026-03-23*
+- **Server Components:** Layout, Page, UI primitives (Button, Badge, Container)
+- **Client Components:** All `interactive/` and `layout/` components (7 total)
+- **Static Generation:** Site can be fully statically exported — no dynamic routes or data fetching

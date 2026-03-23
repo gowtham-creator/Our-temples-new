@@ -1,50 +1,73 @@
 # Concerns
 
-## Tech Debt
+## Technical Debt
 
-| Issue | Severity | Location | Notes |
-|-------|----------|----------|-------|
-| Inline DOM manipulation without framework | Medium | `script.js` | Manual style mutations, no reactive state |
-| Unthrottled scroll event listeners | High | `script.js` (parallax + navbar) | Performance hit on fast scroll |
-| External CDN image dependencies | Medium | `index.html` | All images hotlinked from framerusercontent.com |
-| Carousel without user controls | Low | `index.html` (.carousel) | Auto-scroll only, no prev/next/dots |
-| Hardcoded max-height in FAQ | Low | `styles.css` (.faq-answer) | `max-height: 200px` may truncate long answers |
-| Magic numbers in CSS | Low | `styles.css` | Spacing values (160px, 62px, 42px) not tokenized |
+### Monolithic Page Component
+- `src/app/page.tsx` contains all sections inline (~300 lines)
+- Each section (Hero, About, Features, Stats, Product, FAQ, Blog, CTA) could be extracted into separate components
+- Currently manageable but will become unwieldy if sections grow or get interactive features
 
-## Known Bugs
+### Hardcoded Framer CDN URLs
+- All images reference `https://framerusercontent.com/images/` directly in component code
+- No centralized image manifest or constants file
+- If Framer CDN URLs change or expire, images will break silently
+- Logo SVG in Navbar uses raw `<img>` tag with ESLint override instead of `next/image`
 
-- **Navbar border flash:** Border appears/disappears at exactly 50px scroll — no easing
-- **Parallax jank:** `script.js` parallax runs on every scroll event without `requestAnimationFrame`
-- **FAQ answer clipping:** Long answers may be cut off at 200px max-height
+### Non-Standard Spacing Scale
+- Gap values (10px, 16px, 32px, 42px, 62px, 80px, 160px) are hardcoded in CSS
+- No spacing tokens in `:root` — only color and typography tokens are systematized
+- Makes consistent spacing across new sections harder to maintain
 
 ## Performance
 
-- **Repeated DOM queries:** `querySelectorAll` called on every scroll event in parallax handler
-- **Intersection Observer:** Applied to all section children including already-visible hero
-- **External images:** No lazy loading, no srcset, all images loaded immediately from CDN
-- **Font loading:** Google Fonts loaded render-blocking in `<head>`
+### Image Loading
+- Multiple images marked `priority` — `ParallaxImage`, `HeroImage`, `ImageCarousel` all use `priority`
+- Excessive priority flags defeat the purpose (browsers can only prioritize a few resources)
+- Carousel loads all 3 images eagerly even though only 1 is visible
+
+### Client-Side JavaScript
+- 7 client components for a mostly static page
+- `SmoothScroll` component initializes Lenis on every page load via `requestAnimationFrame` loop
+- Each `FadeIn` wrapper creates its own `IntersectionObserver` via `useInView` — no shared observer
+
+### Animation Bundle Size
+- `motion` library (~30KB gzipped) imported for scroll animations
+- `lenis` (~8KB gzipped) imported for smooth scrolling
+- These are the largest dependencies for what is fundamentally a static marketing page
 
 ## Security
 
-- **Hotlinked images:** Dependent on framerusercontent.com CDN availability
-- **External links:** `target="_blank"` without `rel="noopener noreferrer"` on social links
-- **No CSP headers:** Static file, no Content Security Policy configured
-- **No input sanitization:** No forms currently, but blog/contact links suggest future need
+- **Low risk** — no user input, no forms, no authentication, no API calls
+- No CSP headers configured
+- External image URLs could theoretically be replaced if Framer CDN is compromised
+- No `rel="noopener"` on external links (none detected, but worth checking if added)
 
 ## Accessibility
 
-- **No ARIA labels:** FAQ buttons lack `aria-expanded` attributes
-- **No skip navigation:** Missing skip-to-content link
-- **No alt text variety:** Several images have generic alt text
-- **Color contrast:** Light gray text on white backgrounds may not meet WCAG AA
-- **No keyboard focus styles:** Custom buttons lack visible focus indicators
-- **No screen reader support:** Parallax/animation states not communicated
+### Missing Features
+- No skip-to-content link
+- No focus-visible styles for keyboard navigation
+- FAQ accordion uses `aria-expanded` (good) but no `aria-controls` or `id` linking
+- Carousel thumbnail buttons have `aria-label` (good)
+- No reduced-motion media query — animations play regardless of user preference
+- Some inline images have empty `alt=""` (decorative, acceptable)
 
-## Missing for Production
+### Heading Hierarchy
+- Uses utility classes (`.h1`, `.h2`, etc.) which may not match semantic heading levels
+- Multiple `<h3>` elements used with different visual sizes (`.h3`, `.h4`)
 
-- **No mobile responsiveness:** Desktop-only layout (1440px), no media queries
-- **No form handling:** Contact page linked but no form implementation
-- **No analytics:** No tracking or performance monitoring
-- **No build process:** No minification, bundling, or optimization
-- **No error boundaries:** JS errors could break all interactivity
-- **No SEO meta tags:** Missing Open Graph, Twitter cards, structured data
+## Desktop-Only
+
+- **No responsive design** — 1440px viewport is the only target
+- Content may overflow or break on smaller screens
+- This is intentional per project constraints but limits real-world usability
+- No meta viewport tag issues detected (Next.js handles this)
+
+## Missing Infrastructure
+
+- No testing framework or test files
+- No CI/CD pipeline
+- No error monitoring (Sentry, etc.)
+- No analytics
+- No sitemap or robots.txt
+- No structured data / SEO metadata beyond basic title and description
