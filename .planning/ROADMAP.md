@@ -29,10 +29,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. All 9 typography styles (H1-H6, Body XL/L/M) render with correct font-size, weight, and line-height
   4. Inter font loads without layout shift (next/font configured with weights 400-700)
   5. A test next/image renders a framerusercontent.com image without configuration errors
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md -- Scaffold Next.js 15 project, configure Inter font, set up Framer CDN image support
+- [ ] 01-02-PLAN.md -- Design tokens, typography classes, CSS reset, and visual verification test page
 
 ### Phase 2: UI Components + Data Layer
 **Goal**: All reusable UI building blocks exist and all page content is extracted into typed data files
@@ -85,7 +86,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/0 | Not started | - |
+| 1. Foundation | 0/2 | Planning complete | - |
 | 2. UI Components + Data Layer | 0/0 | Not started | - |
 | 3. Layout + Sections | 0/0 | Not started | - |
 | 4. Interactivity | 0/0 | Not started | - |
