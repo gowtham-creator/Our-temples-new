@@ -111,26 +111,26 @@
 | LAYOUT-01 | Phase 3 | Pending |
 | LAYOUT-02 | Phase 3 | Pending |
 | LAYOUT-03 | Phase 3 | Pending |
-| SECT-01 | Phase 4 | Pending |
-| SECT-02 | Phase 4 | Pending |
-| SECT-03 | Phase 4 | Pending |
-| SECT-04 | Phase 4 | Pending |
-| SECT-05 | Phase 4 | Pending |
-| SECT-06 | Phase 4 | Pending |
-| SECT-07 | Phase 4 | Pending |
-| SECT-08 | Phase 4 | Pending |
-| SECT-09 | Phase 4 | Pending |
-| INTER-01 | Phase 5 | Pending |
-| INTER-02 | Phase 5 | Pending |
-| INTER-03 | Phase 5 | Pending |
-| INTER-04 | Phase 5 | Pending |
-| INTER-05 | Phase 5 | Pending |
+| SECT-01 | Phase 3 | Pending |
+| SECT-02 | Phase 3 | Pending |
+| SECT-03 | Phase 3 | Pending |
+| SECT-04 | Phase 3 | Pending |
+| SECT-05 | Phase 3 | Pending |
+| SECT-06 | Phase 3 | Pending |
+| SECT-07 | Phase 3 | Pending |
+| SECT-08 | Phase 3 | Pending |
+| SECT-09 | Phase 3 | Pending |
+| INTER-01 | Phase 4 | Pending |
+| INTER-02 | Phase 4 | Pending |
+| INTER-03 | Phase 4 | Pending |
+| INTER-04 | Phase 4 | Pending |
+| INTER-05 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 30 total
 - Mapped to phases: 30
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after initial definition*
+*Last updated: 2026-03-23 after roadmap creation (4-phase coarse structure)*
