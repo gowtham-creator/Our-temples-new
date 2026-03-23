@@ -1,0 +1,47 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 24px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+  font-family: inherit;
+  width: fit-content;
+}
+
+.btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.primary {
+  background: var(--dark-1);
+  color: var(--white);
+}
+
+.secondary {
+  background: var(--white);
+  color: var(--dark-1);
+  border: 1px solid var(--dark-3);
+}
+
+.sm {
+  padding: 12px 20px;
+  font-size: 14px;
+}
+
+.lg {
+  padding: 20px 32px;
+  font-size: 18px;
+}
+
+.caret {
+  font-size: 1.2em;
+  line-height: 1;
+}

@@ -1,0 +1,52 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 24px 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-bottom 0.3s;
+}
+
+.scrolled {
+  border-bottom: 1px solid rgba(195, 196, 197, 0.3);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 24px;
+}
+
+.links {
+  display: flex;
+  gap: 42px;
+  list-style: none;
+}
+
+.link {
+  font-size: 16px;
+  color: var(--dark-2);
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: var(--dark-1);
+}
+
+.actions {
+  position: absolute;
+  right: 24px;
+}
