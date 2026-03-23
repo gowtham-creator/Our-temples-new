@@ -8,11 +8,11 @@
 ### Foundation
 
 - [x] **FOUND-01**: Next.js 15 project initialized with App Router, TypeScript, src directory
-- [ ] **FOUND-02**: Design tokens defined as CSS custom properties matching all 12 Framer color styles
-- [ ] **FOUND-03**: Typography system matching all 9 Framer text styles (H1–H6, Body XL/L/M)
+- [x] **FOUND-02**: Design tokens defined as CSS custom properties matching all 12 Framer color styles
+- [x] **FOUND-03**: Typography system matching all 9 Framer text styles (H1–H6, Body XL/L/M)
 - [x] **FOUND-04**: Inter font loaded via next/font with weights 400, 500, 600, 700
 - [x] **FOUND-05**: next/image configured with framerusercontent.com remote patterns
-- [ ] **FOUND-06**: Global CSS reset and base styles applied
+- [x] **FOUND-06**: Global CSS reset and base styles applied
 
 ### UI Components
 
@@ -94,11 +94,11 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | FOUND-01 | Phase 1 | Complete |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
 | FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 1 | Complete |
-| FOUND-06 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Complete |
 | UI-01 | Phase 2 | Pending |
 | UI-02 | Phase 2 | Pending |
 | UI-03 | Phase 2 | Pending |
