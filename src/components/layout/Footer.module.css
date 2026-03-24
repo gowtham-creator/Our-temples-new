@@ -1,5 +1,5 @@
 .footer {
-  background: rgb(26, 29, 33);
+  background: rgb(26, 8, 8);
   color: var(--white);
   overflow: hidden;
 }
@@ -21,6 +21,7 @@
 
 .brand { display: flex; align-items: flex-start; }
 .logoRow { display: flex; align-items: center; gap: 16px; }
+.logoText { text-transform: uppercase; letter-spacing: 1px; font-size: 24px; font-weight: 400; color: var(--white); }
 .divider { width: 1px; height: 24px; background: var(--dark-2); }
 .tagline { font-size: 16px; color: var(--dark-3); }
 
@@ -36,3 +37,17 @@
 .social { display: flex; align-items: center; gap: 10px; }
 .socialIcon { display: flex; color: var(--dark-3); transition: color 0.2s; }
 .socialIcon:hover { color: var(--white); }
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .brand { grid-column: span 2; }
+}
+
+@media (max-width: 640px) {
+  .container { padding: 60px 16px; gap: 32px; }
+  .grid { grid-template-columns: 1fr; gap: 24px; }
+  .brand { grid-column: span 1; }
+  .logoRow { flex-wrap: wrap; gap: 12px; }
+  .bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .social { justify-content: center; }
+}

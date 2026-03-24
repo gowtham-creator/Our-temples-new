@@ -17,3 +17,11 @@
 .image {
   object-fit: cover;
 }
+
+@media (max-width: 1024px) {
+  .wrapper { height: 400px; }
+}
+
+@media (max-width: 640px) {
+  .wrapper { height: 300px; border-radius: 16px; }
+}

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
+import { LiquidButton } from '@/components/ui/liquid-glass-button';
 import FadeIn from '@/components/interactive/FadeIn';
 import ParallaxImage from '@/components/interactive/ParallaxImage';
 import FAQItem from '@/components/interactive/FAQItem';
@@ -9,6 +10,7 @@ import ImageCarousel from '@/components/interactive/ImageCarousel';
 import HeroImage from '@/components/interactive/HeroImage';
 import TextReveal from '@/components/interactive/TextReveal';
 import SmoothScroll from '@/components/interactive/SmoothScroll';
+import DeityCarousel from '@/components/interactive/DeityCarousel';
 import { stats } from '@/data/stats';
 import { faqItems } from '@/data/faq';
 import { blogPosts } from '@/data/blogs';
@@ -22,14 +24,16 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroHeading}>
-            <TextReveal className="h1">Immersive Sound, Simplified</TextReveal>
+            <TextReveal className="h1">Discover Sacred Temples of India</TextReveal>
             <FadeIn delay={0.4} blur>
               <p className="body-l">
-                Our most recent breakthrough in audio devices blends exceptional audio performance with unparalleled toughness and elegance.
+                Explore a comprehensive directory of Hindu temples across India — their origins, legends, architecture, timings, and how to reach them.
               </p>
             </FadeIn>
             <FadeIn delay={0.6} scale>
-              <Button>Buy now</Button>
+              <LiquidButton size="lg">
+                Explore Temples
+              </LiquidButton>
             </FadeIn>
           </div>
           <FadeIn delay={0.3} scale>
@@ -41,22 +45,25 @@ export default function Home() {
       {/* ======== About ======== */}
       <section id="about" className={styles.about}>
         <div className={styles.aboutInner}>
-          <FadeIn delay={0} blur><span className="h2">Our latest innovation</span></FadeIn>
+          <FadeIn delay={0} blur><span className="h2">Your complete guide</span></FadeIn>
           <FadeIn delay={0.1} scale>
             <span className={styles.inlineImg}>
-              <Image src="https://framerusercontent.com/images/ubG0q5oU24cynTwk8AE2YihwtQ4.jpg" alt="" fill sizes="90px" style={{ objectFit: 'cover' }} />
+              <Image src="https://framerusercontent.com/images/rVGASiVonZjCi03XFm4FOmtjI.jpg" alt="" fill sizes="90px" style={{ objectFit: 'cover' }} />
             </span>
           </FadeIn>
-          <FadeIn delay={0.15} blur><span className="h2">in portable speakers</span></FadeIn>
-          <FadeIn delay={0.2} blur><span className="h2">combines superior sound quality</span></FadeIn>
+          <FadeIn delay={0.15} blur><span className="h2">to sacred temples</span></FadeIn>
+          <FadeIn delay={0.2} blur><span className="h2">with rich history and heritage</span></FadeIn>
           <FadeIn delay={0.25} scale>
             <span className={styles.inlineImg}>
-              <Image src="https://framerusercontent.com/images/ICfDgHiYeg3CrkgPh0eIAqjfps.jpg" alt="" fill sizes="90px" style={{ objectFit: 'cover' }} />
+              <Image src="https://framerusercontent.com/images/rVGASiVonZjCi03XFm4FOmtjI.jpg" alt="" fill sizes="90px" style={{ objectFit: 'cover' }} />
             </span>
           </FadeIn>
-          <FadeIn delay={0.3} blur><span className="h2">with unmatched durability</span></FadeIn>
+          <FadeIn delay={0.3} blur><span className="h2">across every state</span></FadeIn>
         </div>
       </section>
+
+      {/* ======== Deity Carousel ======== */}
+      <DeityCarousel />
 
       {/* ======== Features 1 ======== */}
       <section id="features" className={styles.features}>
@@ -65,12 +72,12 @@ export default function Home() {
             <div className={styles.featuresContent}>
               <div className={styles.topWrapper}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="rgb(38,38,40)"><path d="M128,16A112,112,0,1,0,240,128,112.12,112.12,0,0,0,128,16Zm0,208A96,96,0,1,1,224,128,96.11,96.11,0,0,1,128,224ZM160,96v64a8,8,0,0,1-16,0V96a8,8,0,0,1,16,0Zm-48,32v32a8,8,0,0,1-16,0V128a8,8,0,0,1,16,0Z"/></svg>
-                <span className="h6">The Perfect Sound, Anywhere</span>
+                <span className="h6">Explore by State &amp; Deity</span>
               </div>
-              <h3 className="h4">Experience crystal-clear audio with deep bass and immersive sound.</h3>
+              <h3 className="h4">Explore temples by state, deity, city, and festivals across India.</h3>
               <div className={styles.featuresParagraph}>
-                <p className="body-l">Our smart speaker is designed to fill your space with rich, high-fidelity sound—whether you&apos;re at home or on the go.</p>
-                <Button>Buy now</Button>
+                <p className="body-l">Find detailed temple information including darshan timings, pooja schedules, festivals, travel directions, and nearby temples to plan your perfect pilgrimage.</p>
+                <Button>Explore Temples</Button>
               </div>
             </div>
           </FadeIn>
@@ -90,12 +97,12 @@ export default function Home() {
             <div className={styles.featuresContent}>
               <div className={styles.topWrapper}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="rgb(38,38,40)"><path d="M192,56H64A24,24,0,0,0,40,80v96a24,24,0,0,0,24,24H192a24,24,0,0,0,24-24V80A24,24,0,0,0,192,56Zm8,120a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H192a8,8,0,0,1,8,8ZM160,128a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16h48A8,8,0,0,1,160,128Z"/></svg>
-                <span className="h6">Smart. Sleek. Powerful.</span>
+                <span className="h6">Rich History &amp; Legends</span>
               </div>
-              <h3 className="h4">Seamless connectivity, voice control, and a sleek, modern design make this speaker the perfect addition to any room.</h3>
+              <h3 className="h4">Origins, legends, architectural importance, and spiritual significance — all in one place for every temple.</h3>
               <div className={styles.featuresParagraph}>
-                <p className="body-l">Designed for modern living, this speaker blends premium sound with intuitive controls.</p>
-                <Button>Buy now</Button>
+                <p className="body-l">Curated, research-based information collected from devotees, local sources, and direct visits to help you connect deeply with each sacred space.</p>
+                <Button>Learn More</Button>
               </div>
             </div>
           </FadeIn>
@@ -109,9 +116,9 @@ export default function Home() {
             <div className={styles.statsHeading}>
               <div className={styles.statsLeft}>
                 <Badge icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="rgb(87,87,87)"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"/></svg>} label="Why us?" />
-                <h3 className="h3">Trusted by Thousands, Engineered for Excellence</h3>
+                <h3 className="h3">Trusted by Devotees, Built with Devotion</h3>
               </div>
-              <p className="body-l" style={{ flex: 1 }}>Our commitment to innovation and quality has earned the trust of customers worldwide. Sleek design, our products are built to impress.</p>
+              <p className="body-l" style={{ flex: 1 }}>Our commitment to preserving and sharing temple heritage has earned the trust of devotees worldwide. Detailed, authentic, and community-driven.</p>
             </div>
           </FadeIn>
           <div className={styles.statsCards}>
@@ -142,10 +149,10 @@ export default function Home() {
           <FadeIn>
             <div className={styles.statsHeading}>
               <div className={styles.statsLeft}>
-                <Badge icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="rgb(87,87,87)"><path d="M232,108a8,8,0,0,0-4.39-7.14l-24.48-12.25L191.49,55.2A8,8,0,0,0,184,48H72a8,8,0,0,0-7.49,7.2L52.87,88.61,28.39,100.86A8,8,0,0,0,24,108v40a8,8,0,0,0,8,8H48a32,32,0,0,0,64,0h32a32,32,0,0,0,64,0h16a8,8,0,0,0,8-8V108Z"/></svg>} label="In reality" />
-                <h3 className="h3">Timeless Elegance</h3>
+                <Badge icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="rgb(87,87,87)"><path d="M232,108a8,8,0,0,0-4.39-7.14l-24.48-12.25L191.49,55.2A8,8,0,0,0,184,48H72a8,8,0,0,0-7.49,7.2L52.87,88.61,28.39,100.86A8,8,0,0,0,24,108v40a8,8,0,0,0,8,8H48a32,32,0,0,0,64,0h32a32,32,0,0,0,64,0h16a8,8,0,0,0,8-8V108Z"/></svg>} label="Gallery" />
+                <h3 className="h3">Timeless Sacred Architecture</h3>
               </div>
-              <p className="body-l" style={{ flex: 1 }}>Enhance your space with a perfect blend of modern design and warm ambiance. Our speaker bring style and sophistication</p>
+              <p className="body-l" style={{ flex: 1 }}>Witness the grandeur of India&apos;s temple architecture — from ancient Dravidian towers to intricately carved Nagara spires.</p>
             </div>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -158,8 +165,8 @@ export default function Home() {
       <section className={styles.faq}>
         <div className={styles.faqInner}>
           <FadeIn className={styles.faqHeading}>
-            <h5 className="h5">Welcome to Beyond FAQ!</h5>
-            <h3 className="h3">Everything You Need to Know About Our Speakers</h3>
+            <h5 className="h5">Frequently Asked Questions</h5>
+            <h3 className="h3">Everything You Need to Know About Our Temples</h3>
           </FadeIn>
           <div className={styles.faqList}>
             {faqItems.map((item, i) => (
@@ -177,10 +184,10 @@ export default function Home() {
           <FadeIn>
             <div className={styles.statsHeading}>
               <div className={styles.statsLeft}>
-                <Badge icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="rgb(87,87,87)"><path d="M200,32H163.74a47.92,47.92,0,0,0-71.48,0H56A16,16,0,0,0,40,48V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm72,184H56V48H76.75A47.93,47.93,0,0,0,72,64v8a8,8,0,0,0,8,8H176a8,8,0,0,0,8-8V64a47.93,47.93,0,0,0-4.75-16H200Z"/></svg>} label="Blogs" />
-                <h3 className="h3">Sound Insights</h3>
+                <Badge icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="rgb(87,87,87)"><path d="M200,32H163.74a47.92,47.92,0,0,0-71.48,0H56A16,16,0,0,0,40,48V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm72,184H56V48H76.75A47.93,47.93,0,0,0,72,64v8a8,8,0,0,0,8,8H176a8,8,0,0,0,8-8V64a47.93,47.93,0,0,0-4.75-16H200Z"/></svg>} label="Blog" />
+                <h3 className="h3">Temple Insights</h3>
               </div>
-              <p className="body-l" style={{ flex: 1 }}>Stay updated with the latest trends in audio technology, speaker innovations, and expert tips to enhance your listening experience.</p>
+              <p className="body-l" style={{ flex: 1 }}>Stay updated with temple history, festivals, travel guides, and spiritual insights from across India.</p>
             </div>
           </FadeIn>
           <div className={styles.blogGrid}>
@@ -206,12 +213,14 @@ export default function Home() {
         <FadeIn>
           <div className={styles.ctaInner}>
             <div className={styles.ctaTop}>
-              <h2 className="h1" style={{ textAlign: 'left' }}>Get your perfect speaker now!</h2>
-              <Button size="lg">Get yours - 30% off</Button>
+              <h2 className="h1" style={{ textAlign: 'left' }}>Start your temple journey today!</h2>
+              <LiquidButton size="xl">
+                Explore Temples
+              </LiquidButton>
             </div>
             <div className={styles.ctaBottom}>
-              <h5 className="h5">Bring every room together</h5>
-              <p className="body-l">Experience our latest portable speaker innovation, delivering exceptional sound quality, unbeatable durability, and sleek design.</p>
+              <h5 className="h5">Discover temples near you</h5>
+              <p className="body-l">Browse our growing directory of temples across India — with darshan timings, travel info, festivals, and spiritual significance.</p>
             </div>
           </div>
         </FadeIn>

@@ -10,6 +10,8 @@ export const footerLinks = {
 };
 
 export const socialLinks = [
-  { platform: 'x', href: 'https://www.x.com' },
-  { platform: 'instagram', href: 'https://www.instagram.com' },
+  { platform: 'x', href: 'https://www.x.com/@ourtemples' },
+  { platform: 'instagram', href: 'https://www.instagram.com/@ourtemples' },
+  { platform: 'linkedin', href: 'https://www.linkedin.com/company/ourtemples' },
+  { platform: 'reddit', href: 'https://www.reddit.com/r/ourtemples' },
 ];

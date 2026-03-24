@@ -70,3 +70,14 @@
   border: 1.5px solid rgba(255, 255, 255, 0.9);
   pointer-events: none;
 }
+
+@media (max-width: 1024px) {
+  .carousel { height: 480px; }
+  .overlay { width: 25%; }
+}
+
+@media (max-width: 640px) {
+  .carousel { height: 320px; border-radius: 16px; }
+  .overlay { display: none; }
+  .thumb { width: 48px; height: 28px; }
+}

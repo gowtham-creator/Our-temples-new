@@ -16,11 +16,11 @@ export default function HeroImage() {
   const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 0.8, 0.4]);
 
   return (
-    <div ref={ref} style={{ width: '100%', maxWidth: 800, aspectRatio: '1.333', overflow: 'hidden', position: 'relative' }}>
+    <div ref={ref} style={{ width: '100%', maxWidth: 800, aspectRatio: '1.333', overflow: 'hidden', position: 'relative', borderRadius: '24px' }}>
       <motion.div style={{ y, scale, opacity, width: '100%', height: '100%', position: 'relative' }}>
         <Image
-          src="https://framerusercontent.com/images/ubG0q5oU24cynTwk8AE2YihwtQ4.jpg"
-          alt="Sonic Speaker"
+          src="https://framerusercontent.com/images/De7quDcBuqo8p8VnjNKz2NblczY.jpg"
+          alt="Sacred Temple"
           width={800}
           height={600}
           priority

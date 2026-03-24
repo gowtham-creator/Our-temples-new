@@ -1,0 +1,53 @@
+/* ======== 404 Not Found ======== */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark-5);
+}
+
+.container {
+  max-width: 800px;
+  padding: 0 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 24px;
+  border-radius: 100px;
+  background: var(--dark-1);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+/* ======== Responsive ======== */
+
+@media (max-width: 1024px) {
+  .container {
+    gap: 24px;
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    gap: 20px;
+    padding: 0 16px;
+  }
+}

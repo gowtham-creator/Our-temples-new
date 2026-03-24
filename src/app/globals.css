@@ -1,6 +1,27 @@
+@import "tailwindcss";
+
 /* ========================================
-   Sonic - Global Styles
+   Our Temples - Global Styles
    ======================================== */
+
+@theme {
+  --color-primary: rgb(58, 38, 28);
+  --color-primary-foreground: rgb(250, 245, 238);
+  --color-secondary: rgb(235, 222, 208);
+  --color-secondary-foreground: rgb(58, 38, 28);
+  --color-accent: rgb(245, 235, 220);
+  --color-accent-foreground: rgb(58, 38, 28);
+  --color-destructive: rgb(194, 54, 22);
+  --color-background: rgb(250, 245, 238);
+  --color-foreground: rgb(58, 38, 28);
+  --color-muted: rgb(248, 240, 230);
+  --color-muted-foreground: rgb(122, 101, 85);
+  --color-border: rgb(235, 222, 208);
+  --color-input: rgb(235, 222, 208);
+  --color-ring: rgb(168, 148, 128);
+  --color-saffron: rgb(212, 114, 44);
+  --color-kumkum: rgb(194, 54, 22);
+}
 
 *, *::before, *::after {
   margin: 0;
@@ -38,17 +59,20 @@ img {
 /* ======== Design Tokens ======== */
 
 :root {
-  --dark-1: rgb(38, 38, 40);
-  --dark-2: rgb(87, 87, 87);
-  --dark-3: rgb(195, 196, 197);
-  --dark-4: rgb(236, 237, 239);
-  --dark-5: rgb(250, 250, 250);
-  --white: rgb(255, 255, 255);
-  --black: rgb(5, 6, 11);
-  --light-blue: rgb(197, 224, 242);
-  --neutral-50: rgb(112, 112, 112);
-  --neutral-20: rgb(235, 235, 235);
-  --neutral-10: rgb(248, 248, 248);
+  --dark-1: rgb(58, 38, 28);
+  --dark-2: rgb(122, 101, 85);
+  --dark-3: rgb(168, 148, 128);
+  --dark-4: rgb(235, 222, 208);
+  --dark-5: rgb(255, 245, 235);
+  --white: rgb(250, 245, 238);
+  --black: rgb(44, 24, 16);
+  --light-blue: rgb(245, 235, 220);
+  --neutral-50: rgb(122, 101, 85);
+  --neutral-20: rgb(235, 222, 208);
+  --neutral-10: rgb(248, 240, 230);
+  --kumkum: rgb(194, 54, 22);
+  --saffron: rgb(212, 114, 44);
+  --deep-maroon: rgb(26, 8, 8);
 }
 
 /* ======== Typography ======== */
@@ -111,4 +135,25 @@ img {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .h1, h1 { font-size: 48px; }
+  .h2 { font-size: 40px; }
+  .h3, h3.h3 { font-size: 36px; }
+  .h4, h3.h4 { font-size: 28px; }
+  .h5, h5.h5 { font-size: 24px; }
+  .body-xl { font-size: 20px; }
+  .body-l { font-size: 18px; }
+}
+
+@media (max-width: 640px) {
+  .h1, h1 { font-size: 36px; }
+  .h2 { font-size: 32px; }
+  .h3, h3.h3 { font-size: 28px; }
+  .h4, h3.h4 { font-size: 24px; }
+  .h5, h5.h5 { font-size: 20px; }
+  .h6 { font-size: 18px; }
+  .body-xl { font-size: 18px; }
+  .body-l { font-size: 16px; }
 }

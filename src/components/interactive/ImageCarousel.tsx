@@ -43,7 +43,7 @@ export default function ImageCarousel() {
         >
           <Image
             src={images[current]}
-            alt={`Speaker ${current + 1}`}
+            alt={`Temple ${current + 1}`}
             fill
             sizes="1200px"
             className={styles.image}

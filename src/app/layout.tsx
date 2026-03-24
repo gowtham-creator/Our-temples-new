@@ -5,8 +5,8 @@ import Footer from '@/components/layout/Footer';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Sonic — Immersive Sound, Simplified',
-  description: 'Premium speaker experience with exceptional audio performance, toughness, and elegance.',
+  title: 'Our Temples — Discover Sacred Temples of India',
+  description: 'Explore a comprehensive directory of Hindu temples across India — their origins, legends, architecture, timings, and how to reach them.',
 };
 
 export default function RootLayout({

@@ -1,0 +1,75 @@
+/* ======== Privacy Policy ======== */
+
+.section {
+  background: var(--white);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 180px 24px 120px;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+.body {
+  margin-top: 62px;
+  text-align: left;
+  line-height: 1.8;
+  color: var(--dark-2);
+}
+
+.body h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dark-1);
+  margin: 40px 0 16px;
+}
+
+.body p {
+  margin-bottom: 16px;
+}
+
+.body ul {
+  margin: 0 0 16px 24px;
+  list-style: disc;
+}
+
+.body li {
+  margin-bottom: 8px;
+}
+
+/* ======== Responsive ======== */
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 140px 24px 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 120px 16px 60px;
+  }
+
+  .heading {
+    gap: 20px;
+  }
+
+  .body h2 {
+    font-size: 20px;
+    margin: 32px 0 12px;
+  }
+}

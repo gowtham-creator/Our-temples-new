@@ -1,0 +1,179 @@
+.section {
+  background: var(--white);
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--dark-1);
+  border-radius: 100px;
+  font-size: 16px;
+  background: var(--dark-1);
+  width: fit-content;
+}
+
+.badge span {
+  color: var(--white);
+}
+
+.badge svg {
+  fill: var(--white);
+}
+
+/* ── Carousel ── */
+.carouselWrap {
+  position: relative;
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  white-space: nowrap;
+  will-change: transform;
+  padding: 8px 0;
+}
+
+.track + .track {
+  margin-top: 16px;
+}
+
+.track[data-direction="left"] {
+  animation: scrollLeft 50s linear infinite;
+}
+
+.track[data-direction="right"] {
+  animation: scrollRight 50s linear infinite;
+}
+
+.track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ── Card ── */
+.card {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 10px;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  width: 120px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(58, 38, 28, 0.08);
+}
+
+.imageWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--dark-5);
+  border: 2px solid var(--dark-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  flex-shrink: 0;
+}
+
+.card:hover .imageWrap {
+  border-color: var(--saffron);
+  transform: scale(1.08);
+}
+
+.deityImg {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.deityName {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dark-1);
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+}
+
+.deityCount {
+  font-size: 11px;
+  color: var(--dark-2);
+  white-space: nowrap;
+}
+
+/* ── Fade overlays ── */
+.fadeLeft,
+.fadeRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(to right, var(--white), transparent);
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(to left, var(--white), transparent);
+}
+
+@media (max-width: 1024px) {
+  .section { padding: 60px 0; }
+  .header { padding: 0 24px 36px; }
+  .carouselWrap { max-width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 40px 0; }
+  .header { padding: 0 16px 28px; gap: 10px; }
+  .card { width: 100px; padding: 10px 6px; }
+  .imageWrap { width: 56px; height: 56px; }
+  .deityImg { width: 42px; height: 42px; }
+  .deityName { font-size: 10px; }
+  .deityCount { font-size: 9px; }
+  .track { gap: 10px; }
+  .fadeLeft, .fadeRight { width: 60px; }
+}
