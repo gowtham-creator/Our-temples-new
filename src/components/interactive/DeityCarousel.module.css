@@ -43,16 +43,30 @@
   margin: 0 auto;
 }
 
+.trackScroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.trackScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.trackScroller + .trackScroller {
+  margin-top: 16px;
+}
+
 .track {
   display: flex;
   gap: 16px;
   white-space: nowrap;
   will-change: transform;
   padding: 8px 0;
-}
-
-.track + .track {
-  margin-top: 16px;
+  user-select: none;
+  touch-action: pan-x;
 }
 
 .track[data-direction="left"] {

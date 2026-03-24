@@ -19,9 +19,9 @@
 }
 
 @media (max-width: 1024px) {
-  .wrapper { height: 400px; }
+  .wrapper { height: 350px; flex: none; width: 100%; }
 }
 
 @media (max-width: 640px) {
-  .wrapper { height: 300px; border-radius: 16px; }
+  .wrapper { height: 240px; border-radius: 16px; flex: none; width: 100%; }
 }

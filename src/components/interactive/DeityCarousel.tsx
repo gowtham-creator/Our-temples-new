@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "motion/react";
 import styles from "./DeityCarousel.module.css";
 
@@ -28,6 +28,100 @@ function repeat<T>(arr: T[], times: number): T[] {
   return Array.from({ length: times }).flatMap(() => arr);
 }
 
+type Deity = { name: string; image: string; count: number; href: string };
+
+/**
+ * A single scrollable row that:
+ *  - Auto-scrolls via CSS animation by default
+ *  - Pauses auto-scroll and lets user manually swipe/drag on touch/mouse
+ *  - Resumes auto-scroll 2s after user stops interacting
+ */
+function ScrollableTrack({ items, direction }: { items: Deity[]; direction: "left" | "right" }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [isManual, setIsManual] = useState(false);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const scheduleResume = useCallback(() => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setIsManual(false), 2500);
+  }, []);
+
+  // Touch/pointer drag support
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollStart = useRef(0);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    const el = trackRef.current?.parentElement;
+    if (!el) return;
+    isDragging.current = true;
+    startX.current = e.clientX;
+    scrollStart.current = el.scrollLeft;
+    setIsManual(true);
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    el.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    const el = trackRef.current?.parentElement;
+    if (!el) return;
+    const dx = e.clientX - startX.current;
+    el.scrollLeft = scrollStart.current - dx;
+  };
+
+  const onPointerUp = () => {
+    isDragging.current = false;
+    scheduleResume();
+  };
+
+  // Cleanup
+  useEffect(() => () => { if (resumeTimer.current) clearTimeout(resumeTimer.current); }, []);
+
+  return (
+    <div
+      className={styles.trackScroller}
+      onWheel={(e) => {
+        // Allow horizontal wheel/trackpad scroll
+        if (Math.abs(e.deltaX) > 2) {
+          setIsManual(true);
+          scheduleResume();
+        }
+      }}
+    >
+      <div
+        ref={trackRef}
+        className={styles.track}
+        data-direction={isManual ? undefined : direction}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        style={{ cursor: isDragging.current ? "grabbing" : "grab" }}
+      >
+        {items.map((d, i) => (
+          <a
+            key={i}
+            href={d.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+            onClick={(e) => { if (isDragging.current) e.preventDefault(); }}
+            draggable={false}
+          >
+            <div className={styles.imageWrap}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={d.image} alt={d.name} className={styles.deityImg} draggable={false} />
+            </div>
+            <span className={styles.deityName}>{d.name}</span>
+            <span className={styles.deityCount}>{d.count} temples</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function DeityCarousel() {
   const row1 = repeat(DEITIES_ROW1, 4);
   const row2 = repeat(DEITIES_ROW2, 4);
@@ -36,7 +130,6 @@ export default function DeityCarousel() {
 
   return (
     <section ref={sectionRef} className={styles.section}>
-      {/* Header with staggered fade-in */}
       <div className={styles.header}>
         <motion.div
           className={styles.badge}
@@ -68,42 +161,15 @@ export default function DeityCarousel() {
         </motion.p>
       </div>
 
-      {/* Carousel rows with fade-in + slide-up */}
       <motion.div
         className={styles.carouselWrap}
         initial={{ opacity: 0, y: 50 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* Row 1 — scrolls left */}
-        <div className={styles.track} data-direction="left">
-          {row1.map((d, i) => (
-            <a key={i} href={d.href} target="_blank" rel="noopener noreferrer" className={styles.card}>
-              <div className={styles.imageWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={d.image} alt={d.name} className={styles.deityImg} />
-              </div>
-              <span className={styles.deityName}>{d.name}</span>
-              <span className={styles.deityCount}>{d.count} temples</span>
-            </a>
-          ))}
-        </div>
+        <ScrollableTrack items={row1} direction="left" />
+        <ScrollableTrack items={row2} direction="right" />
 
-        {/* Row 2 — scrolls right */}
-        <div className={styles.track} data-direction="right">
-          {row2.map((d, i) => (
-            <a key={i} href={d.href} target="_blank" rel="noopener noreferrer" className={styles.card}>
-              <div className={styles.imageWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={d.image} alt={d.name} className={styles.deityImg} />
-              </div>
-              <span className={styles.deityName}>{d.name}</span>
-              <span className={styles.deityCount}>{d.count} temples</span>
-            </a>
-          ))}
-        </div>
-
-        {/* Fade edges */}
         <div className={styles.fadeLeft} />
         <div className={styles.fadeRight} />
       </motion.div>

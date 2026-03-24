@@ -64,9 +64,9 @@
   .heroInner { padding-top: 40px; gap: 42px; }
   .heroHeading { gap: 24px; max-width: 100%; padding: 0 24px; }
   .aboutInner { padding: 80px 24px; }
-  .featuresRow { flex-direction: column; padding: 80px 24px; gap: 42px; }
-  .featuresRowReverse { flex-direction: column-reverse; padding: 0 24px 80px; }
-  .featuresContent { min-height: auto; }
+  .featuresRow { flex-direction: column; padding: 60px 24px; gap: 32px; }
+  .featuresRowReverse { flex-direction: column-reverse; padding: 0 24px 60px; }
+  .featuresContent { min-height: auto; gap: 24px; }
   .statsContainer { padding: 0 24px 80px; }
   .statsHeading { flex-direction: column; gap: 16px; align-items: flex-start; }
   .statsCards { flex-direction: column; gap: 24px; }
@@ -82,9 +82,11 @@
 @media (max-width: 640px) {
   .hero { padding-top: 100px; }
   .heroInner { gap: 32px; padding-top: 24px; }
-  .aboutInner { padding: 60px 16px; gap: 12px; }
-  .featuresRow { padding: 60px 16px; gap: 32px; }
-  .featuresRowReverse { padding: 0 16px 60px; }
+  .aboutInner { padding: 60px 16px; gap: 10px; }
+  .inlineImg { width: 60px; height: 34px; }
+  .featuresRow { padding: 40px 16px; gap: 24px; }
+  .featuresRowReverse { padding: 0 16px 40px; }
+  .featuresContent { gap: 20px; }
   .statsContainer { padding: 0 16px 60px; }
   .statsCards { gap: 16px; }
   .featureCard { gap: 40px; padding: 24px; }
